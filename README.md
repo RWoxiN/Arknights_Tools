@@ -2,7 +2,9 @@
 
 ## Excel
 
-### 攒抽.xlsx
+### Arknights Resource Calculator - Cards
+
+抽卡资源计算器
 
 #### v1.0
 
