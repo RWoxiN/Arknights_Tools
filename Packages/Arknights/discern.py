@@ -12,7 +12,8 @@ class discern:
 
     UI_TEMPLATE_METHOD = {
         "return": cv2.TM_CCOEFF_NORMED,
-        "storehouse": cv2.TM_CCOEFF_NORMED
+        "storehouse": cv2.TM_CCOEFF_NORMED,
+        "base": cv2.TM_CCOEFF_NORMED,
     }
 
     def find_ui(ui_name):
@@ -20,16 +21,16 @@ class discern:
         template = cv2.imread(discern.TEMPLATE_UI_DIR + ui_name + ".png", 0)
         h, w = template.shape[:2]
 
-        # res = cv2.matchTemplate(screen, template, discern.UI_TEMPLATE_METHOD[ui_name])
-        res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
+        res = cv2.matchTemplate(screen, template, discern.UI_TEMPLATE_METHOD[ui_name])
+        # res = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
 
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
-        # if discern.UI_TEMPLATE_METHOD[ui_name] in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
-        #     click = [min_loc[0] + w/2, min_loc[1] + h/2]
-        # else:
-        #     click = [max_loc[0] + w/2, max_loc[1] + h/2]
-        click = [max_loc[0] + w/2, max_loc[1] + h/2]
+        if discern.UI_TEMPLATE_METHOD[ui_name] in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+            click = [min_loc[0] + w/2, min_loc[1] + h/2]
+        else:
+            click = [max_loc[0] + w/2, max_loc[1] + h/2]
+        # click = [max_loc[0] + w/2, max_loc[1] + h/2]
         return click
 
     # def test_find_ui(ui_name):
@@ -64,3 +65,6 @@ class discern:
     #         pyplot.xticks([]), pyplot.yticks([])
     #         pyplot.suptitle(meth)
     #         pyplot.show()
+
+    def find_resource(resource_name):
+        
